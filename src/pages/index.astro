@@ -1,11 +1,121 @@
 ---
-import Welcome from '../components/Welcome.astro';
+// importar elementos dentro de componentes 
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// importar elementos tipo imagen
+
+import ImagenFondoinicio from '../assets/Fondos/FondoInicio.svg';
+
+// apartado de la tipografia de letra 
+
+import '@fontsource/viga';
+// Supports weights 400-800
+import '@fontsource-variable/sen';
 ---
 
 <Layout>
-	<Welcome />
+<div class="ContenedorInicio1">
+<div class="ContenedorDeInformacionInicio">
+	<h3>SIN EXCUSAS</h3>
+	<p class="Bienvenida">MR. O GYM</p>
+
+
+	<!-- contenedor de bienvenida al citio web Mr. o gym -->
+	<p class="textBienvenida">
+     Bienvenido a MR. O GYM, el lugar donde tus metas se
+	  convierten en realidad. Sin excusas, comienza hoy tu
+	   camino hacia un estilo de vida más saludable y activo.   
+	</p>
+
+	<!-- contenedor de botones  -->
+	 <center>
+	<div class="ContenedorDeBotones">
+    <a href="/Horarios" class="horarios"><button>HORARIOS</button></a>
+	 <a href="" class="planes"><button>PLANES</button></a>
+	</div>
+	</center>
+</div>
+</div>
 </Layout>
+
+<style>
+	.ContenedorInicio1{
+		width: 100%;
+		height: 100%;
+		position: relative;
+		background: url('../assets/Fondos/FondoInicio.svg') no-repeat;
+        background-size: cover;
+}
+.ContenedorDeInformacionInicio h3{
+	color: white;
+	font-family: 'Viga', sans-serif;
+    margin: auto 30px;
+	margin-top: 40px;
+	font-size: 28px;
+}
+
+.ContenedorDeInformacionInicio{
+	width: 100%;
+	height: 300px;
+	position: absolute;
+	bottom: 0px;
+	background: transparent;
+
+
+}
+
+.Bienvenida{
+	color: black;
+	background: #fbfe58;
+	font-family: 'Viga', sans-serif;
+	width: 110px;
+	padding: 5px 10px;
+	border-radius: 20px;
+	text-align: center;
+	margin: 10px 30px;
+	font-size: 20px;
+	filter: drop-shadow(1px, 1px, 1px, black);
+
+}
+
+.textBienvenida{
+	  font-family: 'Sen Variable', sans-serif;
+	  color: rgb(207, 203, 203);
+	  width: 85%;
+	  margin-left: 30px;
+	  font-size: 13px;
+
+	  
+}
+
+.ContenedorDeBotones{
+	position: relative;
+	width: 80%;
+	padding: 10px;
+	background:  #8b8a8a79;
+	margin-bottom: 50px;
+	border-radius: 15px;
+	
+}
+
+.ContenedorDeBotones button{
+	margin: auto 5px;
+}
+
+.horarios button{
+	border: none;
+	padding: 15px 25px;
+	border-radius: 50px;
+	background: rgba(204, 204, 204, 0.507);
+	color: white;
+	display: inline-block;
+}
+.planes button{
+	border: none;
+	padding: 15px 25px;
+	border-radius: 50px;
+	background: #fbfe58;
+	color:  black;
+	display: inline-block;
+}
+</style>

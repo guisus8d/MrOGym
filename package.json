@@ -9,6 +9,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.9.3"
+    "@fontsource-variable/nunito-sans": "^5.2.6",
+    "@fontsource-variable/sen": "^5.2.6",
+    "@fontsource/viga": "^5.2.6",
+    "astro": "^5.9.3",
+    "resend": "^4.6.0"
   }
 }
