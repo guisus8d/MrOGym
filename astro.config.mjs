@@ -1,4 +1,3 @@
-// astro.config.mjs
 import { defineConfig } from 'astro/config';
 import node from '@astrojs/node';
 
@@ -8,8 +7,11 @@ export default defineConfig({
     mode: 'standalone'
   }),
   vite: {
+    build: {
+      target: 'esnext' // Fuerza ESM
+    },
     define: {
       'import.meta.env.RESEND_API_KEY': JSON.stringify(process.env.RESEND_API_KEY),
     },
-  },
+  }
 });
