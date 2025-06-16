@@ -1,14 +1,3 @@
 [build]
   command = "npm run build"
   publish = "dist/client"
-  functions = "dist/server"
-
-[functions]
-  node_bundler = "esbuild"
-  directory = "dist/server"
-  included_files = ["dist/server/**"]
-
-# Renombra funciones problemáticas
-[[functions.routing]]
-  pattern = "/_astro/*"
-  function = "entry"
