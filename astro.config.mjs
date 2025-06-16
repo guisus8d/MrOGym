@@ -2,33 +2,24 @@ import { defineConfig } from 'astro/config';
 import node from '@astrojs/node';
 
 export default defineConfig({
-  output: 'server',
+  output: 'server', // Habilita SSR
   adapter: node({
-    mode: 'standalone'
+    mode: 'standalone', // Modo autónomo para Netlify
   }),
-  // Nueva configuración recomendada
-  experimental: {
-    clientPrerender: true,  // Mejora el manejo de rutas
-    redirects: true        // Para mejor compatibilidad con Netlify
-  },
+
+  // Manejo de variables de entorno
   vite: {
+    define: {
+      // Define variables de entorno para SSR
+      'process.env.RESEND_API_KEY': JSON.stringify(process.env.RESEND_API_KEY),
+      'process.env.OTRA_VARIABLE': JSON.stringify(process.env.OTRA_VARIABLE),
+    },
     build: {
-      target: 'esnext',
-      ssr: true,
-      // Añadir esta configuración para assets
-      assetsInlineLimit: 0 // Evita problemas con imágenes
+      target: 'esnext', // Usa ESM
+      ssr: true,        // Habilita SSR en Vite
     },
     ssr: {
-      noExternal: true,
-      // Especifica paquetes externos si es necesario
-      external: ['paquetes-grandes'] // Reemplaza con paquetes problemáticos
+      noExternal: true, // Evita problemas con paquetes externos
     },
-    define: {
-      'import.meta.env.RESEND_API_KEY': JSON.stringify(process.env.RESEND_API_KEY),
-    },
-    // Añadir para mejor manejo de rutas
-    server: {
-      hmr: false
-    }
-  }
+  },
 });

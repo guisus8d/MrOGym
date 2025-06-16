@@ -1,8 +1,15 @@
 [build]
   command = "npm run build"
-  publish = "dist/client"
-  functions = "dist/server"
+  publish = "dist/client"    # Directorio de archivos estáticos
+  functions = "dist/server"  # Directorio de funciones SSR
 
 [functions]
-  node_bundler = "esbuild"
-  included_files = ["dist/server/**"]
+  node_bundler = "esbuild"   # Usa ESBuild para optimización
+  included_files = ["dist/server/**"] # Incluye todos los archivos del servidor
+
+# Redirección para SPA/SSR (evita errores 404)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = true
