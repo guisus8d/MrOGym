@@ -8,7 +8,11 @@ export default defineConfig({
   }),
   vite: {
     build: {
-      target: 'esnext' // Fuerza ESM
+      target: 'esnext', // Fuerza ESM
+      ssr: true // Habilita SSR explícitamente
+    },
+    ssr: {
+      noExternal: true // Evita problemas con paquetes externos
     },
     define: {
       'import.meta.env.RESEND_API_KEY': JSON.stringify(process.env.RESEND_API_KEY),
