@@ -1,15 +1,7 @@
 [build]
   command = "npm run build"
-  publish = "dist/client"    # Directorio de archivos estáticos
-  functions = "dist/server"  # Directorio de funciones SSR
+  publish = "dist/client"
 
 [functions]
-  node_bundler = "esbuild"   # Usa ESBuild para optimización
-  included_files = ["dist/server/**"] # Incluye todos los archivos del servidor
-
-# Redirección para SPA/SSR (evita errores 404)
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = true
+  node_bundler = "esbuild"
+  directory = "netlify/functions" 

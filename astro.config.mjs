@@ -1,25 +1,20 @@
 import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';
+import netlify from '@astrojs/netlify/functions'; // Cambiar a Netlify adapter
 
 export default defineConfig({
-  output: 'server', // Habilita SSR
-  adapter: node({
-    mode: 'standalone', // Modo autónomo para Netlify
-  }),
-
-  // Manejo de variables de entorno
+  output: 'server',
+  adapter: netlify(), // Usar el adaptador de Netlify
+  
   vite: {
     define: {
-      // Define variables de entorno para SSR
       'process.env.RESEND_API_KEY': JSON.stringify(process.env.RESEND_API_KEY),
       'process.env.OTRA_VARIABLE': JSON.stringify(process.env.OTRA_VARIABLE),
     },
     build: {
-      target: 'esnext', // Usa ESM
-      ssr: true,        // Habilita SSR en Vite
+      target: 'esnext',
     },
     ssr: {
-      noExternal: true, // Evita problemas con paquetes externos
+      noExternal: true,
     },
   },
 });
