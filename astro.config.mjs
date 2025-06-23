@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import netlify from '@astrojs/netlify/functions'; // Cambiar a Netlify adapter
 
 export default defineConfig({
-  output: 'server',
+  output: 'static',
   adapter: netlify(),
   site: 'https://mrogym.netlify.app/', // AÑADE ESTO
   base: '/',                          // AÑADE ESTO
