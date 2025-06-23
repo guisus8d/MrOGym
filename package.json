@@ -9,7 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/netlify": "^5.2.3", 
+    "@astrojs/netlify": "^6.4.0",
     "@fontsource-variable/nunito-sans": "^5.2.6",
     "@fontsource-variable/sen": "^5.2.6",
     "@fontsource/viga": "^5.2.6",
