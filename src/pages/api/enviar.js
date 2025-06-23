@@ -53,13 +53,15 @@ export const POST = async ({ request }) => {
                     height: auto;
                 }
                 .button {
+                    
                     display: inline-block;
                     padding: 10px 20px;
-                    background-color: #e74c3c;
-                    color: white;
+                    background-color:rgb(229, 233, 29);
+                    color: black;
                     text-decoration: none;
                     border-radius: 4px;
                     margin: 15px 0;
+                    
                 }
                 .message {
                     background-color: white;
@@ -71,6 +73,11 @@ export const POST = async ({ request }) => {
                 .logo{
                   width: 100px;
                 }
+                  .titulo{
+                   font-size: 13px;
+                  }
+
+                  
             </style>
         </head>
         <body>
@@ -84,16 +91,16 @@ export const POST = async ({ request }) => {
                     ${formData.get('message')}
                 </div>
                 
-                <p>Si tienes alguna pregunta, no dudes en contactarnos.</p>
+                <p class="titulo">Mensaje de envio de datos para registrarse en un plan.</p>
                 
-                <a href="https://mrogym.com/contacto" class="button">Contactar Soporte</a>
+                <a href="https://mrogym.com/contacto" class="button">Ver mas Infomacion</a>
             </div>
             
             <div class="footer">
                 <p>&copy; ${new Date().getFullYear()} Mr. O Gym. Todos los derechos reservados.</p>
                 <p>
-                    <a href="https://mrogym.com" style="color: #3498db;">Visita nuestro sitio web</a> | 
-                    <a href="https://mrogym.com/privacidad" style="color: #3498db;">Política de privacidad</a>
+                    <a href="https://mrogym.com" style="color:rgb(29, 165, 255);">Visita nuestro sitio web</a> | 
+                    <a href="https://mrogym.com/privacidad" style="color:rgb(35, 185, 255);">Política de privacidad</a>
                 </p>
             </div>
         </body>
