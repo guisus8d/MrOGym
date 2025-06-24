@@ -1,15 +1,30 @@
 import { Resend } from 'resend';
 
-export const POST = async ({ request }) => {
-  const resend = new Resend(import.meta.env.RESEND_API_KEY);
-  const formData = await request.formData();
+export const prerender = false;
+
+export async function POST({ request }) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   
   try {
-    await resend.emails.send({
+    const formData = await request.formData();
+    const email = formData.get('email')?.toString();
+    const subject = formData.get('subject')?.toString();
+    const message = formData.get('message')?.toString();
+
+    // Validación básica
+    if (!email || !subject || !message) {
+      return new Response(
+        JSON.stringify({ error: 'Faltan campos requeridos' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Envío del email
+    const { data, error } = await resend.emails.send({
       from: 'Mr. O Gym <mrogym@mrogym.com>',
-      to: [formData.get('email')],
-      subject: formData.get('subject'),
-      html: `
+      to: [email],
+      subject: subject,
+            html: `
         <!DOCTYPE html>
         <html>
         <head>
@@ -107,14 +122,25 @@ export const POST = async ({ request }) => {
         </html>
       `,
     });
-    return new Response(JSON.stringify({ success: true }), { 
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
+
+    if (error) {
+      console.error('Error Resend:', error);
+      throw error;
+    }
+
+    return new Response(
+      JSON.stringify({ success: true, data }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
+    
   } catch (error) {
-    return new Response(JSON.stringify({ error: 'Error al enviar' }), { 
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    console.error('Error en endpoint:', error);
+    return new Response(
+      JSON.stringify({ 
+        error: 'Error al enviar el mensaje',
+        details: error.message 
+      }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
   }
-};
+}
