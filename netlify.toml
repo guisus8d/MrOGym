@@ -1,0 +1,7 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions" # Ruta donde se generan las funciones
+
+[context.production.environment]
+  NODE_VERSION = "18" # Versión compatible con Astro

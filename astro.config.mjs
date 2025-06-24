@@ -1,11 +1,11 @@
 import { defineConfig } from 'astro/config';
-import netlify from '@astrojs/netlify/functions'; // Cambiar a Netlify adapter
+import netlify from '@astrojs/netlify/functions'; // Mantener functions para el endpoint
 
 export default defineConfig({
-  output: 'static',
+  output: 'server', // Cambiar de 'static' a 'server' para SSR
   adapter: netlify(),
-  site: 'https://mrogym.netlify.app/', // AÑADE ESTO
-  base: '/',                          // AÑADE ESTO
+  site: 'https://mrogym.netlify.app/',
+  base: '/',
   
   vite: {
     define: {
