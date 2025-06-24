@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "netlify-build": "npm run build"
   },
   "dependencies": {
     "@astrojs/netlify": "^6.4.0",

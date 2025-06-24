@@ -1,7 +1,8 @@
 [build]
   command = "npm run build"
   publish = "dist"
-  functions = "netlify/functions" # Ruta donde se generan las funciones
+  functions = "src/pages/api" # Apuntamos directamente a tu carpeta API
 
 [context.production.environment]
-  NODE_VERSION = "18" # Versión compatible con Astro
+  NODE_VERSION = "18"
+  RESEND_API_KEY = "@resend_api_key"

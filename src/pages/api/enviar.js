@@ -1,37 +1,47 @@
-import { Resend } from 'resend';
+const { Resend } = require('resend');
 
-const resend = new Resend(import.meta.env.RESEND_API_KEY);
-
-export async function POST({ request }) {
-  // Verificar método HTTP
-  if (request.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Método no permitido' }), {
-      status: 405
-    });
+// Netlify Function handler
+exports.handler = async (event, context) => {
+  // Solo aceptar POST
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      body: JSON.stringify({ error: 'Método no permitido' }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    };
   }
 
   try {
-    // Verificar API key
-    if (!import.meta.env.RESEND_API_KEY) {
-      console.error('ERROR: RESEND_API_KEY no está configurada');
-      throw new Error('Configuración del servidor incompleta');
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    
+    if (!process.env.RESEND_API_KEY) {
+      console.error('ERROR: Falta API key de Resend');
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Configuración del servidor incompleta' })
+      };
     }
 
-    const formData = await request.formData();
-    const email = formData.get('email');
-    const message = formData.get('message');
+    const body = JSON.parse(event.body);
+    const { email, message } = body;
 
     if (!email || !message) {
-      return new Response(
-        JSON.stringify({ error: 'Email y mensaje son requeridos' }),
-        { status: 400 }
-      );
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Email y mensaje son requeridos' }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
     }
 
     const { data, error } = await resend.emails.send({
       from: 'Mr. O Gym <contacto@mrogym.com>',
       to: email,
-      reply_to: 'contacto@mrogym.com', // Añadido para mejor manejo de respuestas
+      reply_to: 'contacto@mrogym.com',
       subject: 'SOLICITUD DE PLAN - Mr. O Gym',
       text: message
     });
@@ -41,22 +51,29 @@ export async function POST({ request }) {
       throw error;
     }
 
-    return new Response(
-      JSON.stringify({ 
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ 
         success: true,
-        message: "Mensaje enviado correctamente" 
+        message: "Mensaje enviado correctamente",
+        emailId: data.id
       }),
-      { status: 200 }
-    );
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
 
   } catch (error) {
     console.error('Error completo:', error);
-    return new Response(
-      JSON.stringify({ 
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ 
         error: 'Error al procesar tu solicitud',
-        details: process.env.NODE_ENV === 'development' ? error.message : null
+        details: process.env.NODE_ENV === 'development' ? error.message : 'Contacta al soporte'
       }),
-      { status: 500 }
-    );
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
   }
-}
+};
