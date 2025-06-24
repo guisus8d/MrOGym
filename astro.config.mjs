@@ -4,7 +4,7 @@ import netlify from '@astrojs/netlify/functions'; // Mantener functions para el 
 export default defineConfig({
   output: 'server', // Cambiar de 'static' a 'server' para SSR
   adapter: netlify(),
-  site: 'https://mrogym.netlify.app/',
+  site: 'https://mrogym.com',
   base: '/',
   
   vite: {
